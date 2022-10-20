@@ -29,7 +29,6 @@ public class Record {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category")
-    @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Category category;
