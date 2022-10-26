@@ -3,7 +3,7 @@ package com.emresahna.loginwithreact.Dto;
 import lombok.Data;
 
 @Data
-public class LoginDto {
+public class LoginRequest {
     private String username;
     private String password;
 }

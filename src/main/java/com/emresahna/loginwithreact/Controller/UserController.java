@@ -1,10 +1,10 @@
 package com.emresahna.loginwithreact.Controller;
 
-import com.emresahna.loginwithreact.Dto.LoginDto;
+import com.emresahna.loginwithreact.Dto.LoginRequest;
+import com.emresahna.loginwithreact.Dto.LoginResponse;
 import com.emresahna.loginwithreact.Dto.RegisterDto;
 import com.emresahna.loginwithreact.Entity.User;
 import com.emresahna.loginwithreact.Exception.UserAlreadyCreatedException;
-import com.emresahna.loginwithreact.Exception.UserIncorrectLoginAttemptException;
 import com.emresahna.loginwithreact.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +26,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody LoginDto user) throws UserIncorrectLoginAttemptException {
-        User returnedUser = userService.login(user);
-        return new ResponseEntity<>(returnedUser, HttpStatus.OK);
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest form){
+        LoginResponse response = userService.login(form);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping("/is_logged_in")
+    public ResponseEntity<LoginResponse> stillLogin(@RequestHeader("Authorization") String token){
+        LoginResponse response = userService.isLogged(token);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
